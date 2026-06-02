@@ -33,11 +33,16 @@
   },
   "overrides": [
     {
-      "includes": ["**/packages/idp/app/root.tsx"],
+      "includes": ["**/*.svelte", "**/*.astro", "**/*.vue"],
       "linter": {
         "rules": {
-          "security": {
-            "noDangerouslySetInnerHtml": "off"
+          "style": {
+            "useConst": "off",
+            "useImportType": "off"
+          },
+          "correctness": {
+            "noUnusedVariables": "off",
+            "noUnusedImports": "off"
           }
         }
       }

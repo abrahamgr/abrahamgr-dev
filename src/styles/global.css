@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=IBM+Plex+Mono:wght@600&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-mono:
+    "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", monospace;
+  --font-display: "IBM Plex Mono", "Geist Mono", ui-monospace, monospace;
+
+  --color-page: #050505;
+  --color-terminal: #0b0d0b;
+  --color-terminal-body: #080a08;
+  --color-terminal-bar: #151815;
+  --color-terminal-footer: #101410;
+  --color-terminal-border: #273827;
+  --color-ink: #ffffff;
+  --color-ink-muted: #b6c8b6;
+  --color-ink-soft: #d7ffd7;
+  --color-ink-row: #dceedc;
+  --color-neon: #00ff00;
+  --color-neon-command: #7cff7c;
+  --color-neon-label: #3aff3a;
+  --color-neon-status: #79b879;
+  --color-neon-icon: #8aff8a;
+  --color-control-close: #ff5f57;
+  --color-control-minimize: #febc2e;
+  --color-control-zoom: #28c840;
+
+  --shadow-terminal: 0 18px 44px rgb(0 255 0 / 22%);
+  --shadow-terminal-atmosphere:
+    0 -24rem 1.5rem rgb(0 255 0 / 27%), 0 0 1.75rem rgb(128 255 128 / 27%);
+}
