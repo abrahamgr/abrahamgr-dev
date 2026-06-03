@@ -1,8 +1,56 @@
 ---
 import { HomeTerminal } from '../components/HomeTerminal'
 import HomeLayout from '../layouts/HomeLayout.astro'
+
+const title = 'Abraham Galindo | Staff Software Engineer'
+const description =
+  'Abraham Galindo is a Staff Software Engineer focused on React, Next.js, Node.js, TypeScript, micro-frontends, frontend architecture, and product delivery.'
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Abraham Galindo',
+  url: 'https://abrahamgr.dev/',
+  email: 'mailto:contact@abrahamgr.dev',
+  jobTitle: 'Staff Software Engineer',
+  description,
+  knowsAbout: [
+    'React',
+    'Next.js',
+    'Node.js',
+    'TypeScript',
+    'Micro-frontends',
+    'Frontend architecture',
+    'Cloudflare Workers',
+    'Web performance',
+    'Design systems',
+    'Technical leadership',
+  ],
+  sameAs: [
+    'https://github.com/abrahamgr',
+    'https://www.linkedin.com/in/abrahamgr28',
+    'https://www.credly.com/users/abrahamgr/badges',
+  ],
+}
 ---
 
-<HomeLayout title="Abraham Galindo | Staff Software Engineer">
+<HomeLayout
+	title={title}
+	description={description}
+	canonicalPath="/"
+	keywords={[
+		'Abraham Galindo',
+		'Staff Software Engineer',
+		'React',
+		'Next.js',
+		'Node.js',
+		'TypeScript',
+		'micro-frontends',
+		'frontend architecture',
+		'Cloudflare Workers',
+		'web performance',
+		'technical leadership',
+	]}
+	structuredData={structuredData}
+>
 	<HomeTerminal />
 </HomeLayout>

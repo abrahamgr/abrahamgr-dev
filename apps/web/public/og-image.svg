@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Abraham Galindo - Staff Software Engineer</title>
+  <desc id="desc">Terminal-inspired social preview for Abraham Galindo's personal site.</desc>
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="46%" r="55%">
+      <stop offset="0%" stop-color="#00ff00" stop-opacity="0.28" />
+      <stop offset="58%" stop-color="#00ff00" stop-opacity="0.09" />
+      <stop offset="100%" stop-color="#050505" stop-opacity="0" />
+    </radialGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="28" stdDeviation="22" flood-color="#00ff00" flood-opacity="0.2" />
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="#050505" />
+  <rect width="1200" height="630" fill="url(#glow)" />
+  <path d="M90 526 C270 456 431 585 642 515 C841 449 970 496 1110 451" fill="none" stroke="#80ff80" stroke-opacity="0.22" stroke-width="12" />
+
+  <g filter="url(#shadow)">
+    <rect x="180" y="116" width="840" height="398" rx="16" fill="#0b0d0b" stroke="#273827" stroke-width="2" />
+    <rect x="180" y="116" width="840" height="58" rx="16" fill="#151815" />
+    <path d="M180 158 H1020 V174 H180 Z" fill="#151815" />
+    <circle cx="219" cy="145" r="9" fill="#ff5f57" />
+    <circle cx="250" cy="145" r="9" fill="#febc2e" />
+    <circle cx="281" cy="145" r="9" fill="#28c840" />
+    <text x="321" y="151" fill="#d7ffd7" font-family="Geist Mono, Menlo, Monaco, Consolas, monospace" font-size="20" font-weight="500">abraham@portfolio: ~/modern-stack</text>
+
+    <text x="226" y="242" fill="#7cff7c" font-family="Geist Mono, Menlo, Monaco, Consolas, monospace" font-size="26">$ ./load-modern-engineering-profile.sh</text>
+    <text x="226" y="314" fill="#ffffff" font-family="IBM Plex Mono, Geist Mono, Menlo, Monaco, Consolas, monospace" font-size="58" font-weight="600">Abraham Galindo</text>
+    <text x="226" y="367" fill="#b6c8b6" font-family="Geist Mono, Menlo, Monaco, Consolas, monospace" font-size="26">Staff Software Engineer</text>
+    <text x="226" y="416" fill="#79b879" font-family="Geist Mono, Menlo, Monaco, Consolas, monospace" font-size="22">React | Next.js | Node.js | TypeScript</text>
+    <text x="226" y="455" fill="#79b879" font-family="Geist Mono, Menlo, Monaco, Consolas, monospace" font-size="22">Micro-frontends | Tech leadership | Product delivery</text>
+  </g>
+</svg>

@@ -15,11 +15,12 @@ const profile = {
   command: './load-modern-engineering-profile.sh',
   name: 'Abraham Galindo',
   description:
-    'Staff Software Engineer focused on React, Next.js, Node.js, TypeScript, micro-frontends, and high-quality product delivery.',
+    'Staff Software Engineer focused on React, Next.js, Node.js, TypeScript, micro-frontends, frontend architecture, and high-quality product delivery.',
   statusLines: [
     '[ok] loading 10+ years of engineering experience',
     '[ok] focusing React, Next.js, Node.js, TypeScript',
-    '[ok] enabling tech leadership, mentoring, code quality',
+    '[ok] improving web performance, design systems',
+    '[ok] enabling technical leadership, mentoring, code quality',
   ],
   snapshotCommand: 'whoami',
   snapshotRows: [
@@ -33,7 +34,7 @@ const profile = {
     },
     {
       label: 'approach  :',
-      value: 'code_quality | mentoring | scalable_delivery',
+      value: 'performance | design_systems | scalable_delivery',
     },
   ],
   links: [

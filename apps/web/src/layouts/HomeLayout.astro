@@ -1,18 +1,57 @@
 ---
 import '../styles/global.css'
-const { title } = Astro.props
+
+type Props = {
+  title: string
+  description?: string
+  canonicalPath?: string
+  imagePath?: string
+  keywords?: string[]
+  robots?: string
+  structuredData?: Record<string, unknown>
+}
+
+const {
+  title,
+  description = 'Abraham Galindo, Staff Software Engineer focused on React, Next.js, Node.js, TypeScript, micro-frontends, and product delivery.',
+  canonicalPath = Astro.url.pathname,
+  imagePath = '/og-image.png',
+  keywords = [],
+  robots,
+  structuredData,
+} = Astro.props
+
+const siteUrl = Astro.site ?? new URL(Astro.url.origin)
+const canonicalUrl = new URL(canonicalPath, siteUrl).toString()
+const imageUrl = new URL(imagePath, siteUrl).toString()
+const jsonLd = structuredData ? JSON.stringify(structuredData) : undefined
 ---
 
 <html lang="en" class="min-h-full bg-page font-mono text-ink">
 	<head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
 		<meta
 			name="description"
-			content="Abraham Galindo, Staff Software Engineer focused on React, Next.js, Node.js, TypeScript, micro-frontends, and product delivery."
+			content={description}
 		/>
+		{keywords.length > 0 && <meta name="keywords" content={keywords.join(', ')} />}
+		{robots && <meta name="robots" content={robots} />}
+		<link rel="canonical" href={canonicalUrl} />
+		<meta property="og:type" content="profile" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:image" content={imageUrl} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:site_name" content="Abraham Galindo" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={imageUrl} />
+		{jsonLd && <script type="application/ld+json" set:html={jsonLd} />}
 		<title>{title}</title>
 	</head>
 	<body class="m-0 min-h-screen bg-page text-ink">
