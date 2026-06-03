@@ -1,0 +1,16 @@
+/**
+ * Static Astro site deployed to Cloudflare Workers.
+ * The assets directory is produced by `pnpm --filter web build`.
+ */
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "abrahamgr-dev",
+  "compatibility_date": "2026-06-03",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  },
+  "observability": {
+    "enabled": true
+  }
+}

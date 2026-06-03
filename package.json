@@ -7,6 +7,7 @@
     "build": "pnpm --filter web build",
     "preview": "pnpm --filter web preview",
     "check": "biome check --write",
+    "check:ci": "biome check .",
     "prepare": "lefthook install && ./scripts/link-skills.sh || true"
   },
   "packageManager": "pnpm@10.18.3",
@@ -15,6 +16,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.16",
-    "lefthook": "^2.1.9"
+    "lefthook": "^2.1.9",
+    "wrangler": "^4.97.0"
   }
 }

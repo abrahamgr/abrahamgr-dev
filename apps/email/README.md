@@ -50,6 +50,18 @@ Run commands from the repository root.
 | `pnpm --filter email deploy` | Deploy the Worker to Cloudflare. |
 | `pnpm --filter email cf-typegen` | Regenerate `worker-configuration.d.ts` after binding or Wrangler config changes. |
 | `pnpm run check` | Run Biome checks and apply formatting fixes for the workspace. |
+| `pnpm run check:ci` | Run Biome checks without writing changes. |
+
+## Deployment
+
+GitHub Actions deploys this Worker after the read-only workspace check passes on
+pushes to `main`. A merged pull request triggers deployment through the
+resulting push to `main`.
+
+The GitHub repository must define these secrets:
+
+- `CLOUDFLARE_API_TOKEN`
+- `CLOUDFLARE_ACCOUNT_ID`
 
 ## Development notes
 

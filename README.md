@@ -1,16 +1,42 @@
 # Personal site
-Web site to showcase my profile.
 
-## 🧞 Commands
+pnpm workspace for a personal site and related Cloudflare services.
 
-All commands are run from the root of the project, from a terminal:
+## Projects
 
-| Command             | Action                                      |
-| :------------------ | :------------------------------------------ |
-| `pnpm install`      | Installs dependencies                       |
-| `pnpm run dev`      | Starts local dev server at `localhost:3000` |
-| `pnpm run build`    | Build your production site to `./dist/`     |
-| `pnpm run preview`  | Preview your build locally, before deploying |
-| `pnpm run astro ...`| Run CLI commands like `astro add`, `astro check` |
-| `pnpm run astro -- --help` | Get help using the Astro CLI              |
+| Package | Path | Purpose |
+| --- | --- | --- |
+| `web` | `apps/web` | Astro static site deployed to Cloudflare Workers static assets. |
+| `email` | `apps/email` | Cloudflare Worker that handles Resend inbound email webhooks. |
 
+## Commands
+
+All commands are run from the repository root.
+
+| Command | Action |
+| --- | --- |
+| `pnpm install` | Install workspace dependencies. |
+| `pnpm run dev` | Start the web dev server at `localhost:3000`. |
+| `pnpm run build` | Build the web app for production. |
+| `pnpm run preview` | Preview the production web build locally. |
+| `pnpm run check` | Run Biome checks and apply formatting fixes. |
+| `pnpm run check:ci` | Run Biome checks without writing changes. |
+| `pnpm --filter web deploy` | Deploy the static web app to Cloudflare Workers. |
+| `pnpm --filter email dev` | Run the email Worker locally with Wrangler. |
+| `pnpm --filter email deploy` | Deploy the email Worker to Cloudflare Workers. |
+| `pnpm --filter email cf-typegen` | Regenerate Worker types after binding changes. |
+
+## Deployment
+
+GitHub Actions deploys both Cloudflare Workers when changes land on `main`. A
+merged pull request triggers the same workflow because it creates a push to
+`main`.
+
+Required GitHub repository secrets:
+
+- `CLOUDFLARE_API_TOKEN`
+- `CLOUDFLARE_ACCOUNT_ID`
+
+The workflow installs pnpm with `pnpm/action-setup`, configures Node 22.12.0
+with pnpm caching, runs `pnpm install --frozen-lockfile`, runs the read-only
+workspace check, builds the web app, and deploys both Worker projects.

@@ -1,25 +1,8 @@
 ---
 import { HomeTerminal } from '../components/HomeTerminal'
-import '../styles/global.css'
+import HomeLayout from '../layouts/HomeLayout.astro'
 ---
 
-<html lang="en" class="min-h-full bg-page font-mono text-ink">
-	<head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<meta
-			name="description"
-			content="Abraham Galindo, Staff Software Engineer focused on React, Next.js, Node.js, TypeScript, micro-frontends, and product delivery."
-		/>
-		<title>Abraham Galindo | Staff Software Engineer</title>
-	</head>
-	<body class="m-0 min-h-screen bg-page text-ink">
-		<main
-			class="relative grid min-h-screen place-items-center overflow-hidden p-[clamp(1.5rem,5vw,3rem)] before:absolute before:h-[min(64vw,30rem)] before:w-[min(84vw,42rem)] before:bg-[radial-gradient(ellipse_at_center_46%,rgb(0_255_0_/_40%)_0%,rgb(5_5_5_/_0%)_70%)] before:opacity-35 before:saturate-[1.15] after:absolute after:h-[0.3rem] after:w-[min(72vw,40rem)] after:rotate-[-6deg] after:translate-y-56 after:bg-[rgb(128_255_128_/_27%)] after:shadow-terminal-atmosphere after:blur-[1px] max-[520px]:items-start max-[520px]:p-4"
-		>
-			<HomeTerminal />
-		</main>
-	</body>
-</html>
+<HomeLayout title="Abraham Galindo | Staff Software Engineer">
+	<HomeTerminal />
+</HomeLayout>
