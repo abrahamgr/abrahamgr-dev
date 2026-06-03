@@ -45,7 +45,7 @@ jobs:
         run: pnpm --filter web build
 
       - name: Deploy web Worker
-        run: pnpm --filter web deploy
+        run: pnpm --filter web run deploy
 
       - name: Deploy email Worker
-        run: pnpm --filter email deploy
+        run: pnpm --filter email run deploy
