@@ -51,7 +51,7 @@ const profile = {
     },
     {
       label: 'Credly',
-      href: 'https://www.credly.com/users/abrahamgr',
+      href: 'https://www.credly.com/users/abrahamgr/badges',
     },
   ],
 }
@@ -97,9 +97,11 @@ function TerminalLinks({ links }: { links: TerminalLink[] }) {
       <span className="m-0 text-ink-muted">more info:</span>
       {links.map((link, index) => (
         <a
-          className="inline-flex items-center gap-[5px] outline-none hover:text-neon-command focus-visible:text-neon-command"
+          className="inline-flex items-center gap-1.25 outline-none hover:text-neon-command focus-visible:text-neon-command"
           href={link.href}
           key={link.label}
+          target="_blank"
+          rel="noopener noreferrer"
         >
           <span className="text-neon">[{index + 1}]</span>
           {link.label}
