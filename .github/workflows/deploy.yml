@@ -45,7 +45,7 @@ jobs:
         run: pnpm --filter web build
 
       - name: Deploy web Worker
-        run: pnpm --filter web run deploy
+        run: pnpm --filter web run deploy --message "Deployed from GA - ${{ github.event.head_commit.message }}"
 
       - name: Deploy email Worker
-        run: pnpm --filter email run deploy
+        run: pnpm --filter email run deploy --message "Deployed from GA - ${{ github.event.head_commit.message }}"

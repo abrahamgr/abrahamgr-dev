@@ -101,9 +101,9 @@ async function forwardEmail(env: AppEnv, event: unknown) {
       }
 
   const { data, error: sendError } = await resend.emails.send({
-    from: env.FORWARD_FROM,
+    from: `abrahamgr.dev <${env.FORWARD_FROM}>`,
     to: [env.FORWARD_TO],
-    subject: subject ?? '(no subject)',
+    subject: `${subject ?? '(no subject)'} - ${email.from}`,
     ...content,
     attachments,
   })
