@@ -36,9 +36,12 @@ For production, store sensitive values as Cloudflare Worker secrets:
 ```sh
 pnpm --filter email wrangler secret put RESEND_API_KEY
 pnpm --filter email wrangler secret put RESEND_WEBHOOK_SECRET
-pnpm --filter email wrangler secret put FORWARD_FROM
-pnpm --filter email wrangler secret put FORWARD_TO
 ```
+
+`FORWARD_FROM` and `FORWARD_TO` can be managed as dashboard variables if you do
+not want email addresses in source control. `wrangler.jsonc` sets
+`keep_vars: true` so `pnpm --filter email deploy` does not remove
+dashboard-managed variables during deploy.
 
 ## Commands
 
