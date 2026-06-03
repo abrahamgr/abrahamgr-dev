@@ -43,7 +43,7 @@ const profile = {
     },
     {
       label: 'LinkedIn',
-      href: 'https://www.linkedin.com/in/abrahamgr',
+      href: 'https://www.linkedin.com/in/abrahamgr28',
     },
     {
       label: 'Email',
