@@ -4,7 +4,7 @@
 
 This is a pnpm workspace for a personal site and related services. Workspace packages live under `apps/*`.
 
-- `apps/web`: Astro site with React components and Tailwind CSS. Pages are in `apps/web/src/pages`, shared UI is in `apps/web/src/components`, global styles are in `apps/web/src/styles/global.css`, and static assets are in `apps/web/public`.
+- `apps/web`: Astro site with React components and Tailwind CSS. Pages are in `apps/web/src/pages`, reusable layouts are in `apps/web/src/layouts`, shared UI is in `apps/web/src/components`, global styles are in `apps/web/src/styles/global.css`, and static assets are in `apps/web/public`.
 - `apps/email`: Cloudflare Worker email service. Source starts at `apps/email/src/index.ts`, shared types are in `apps/email/src/types.ts`, and deployment config is in `apps/email/wrangler.jsonc`.
 - Root config includes `biome.json`, `lefthook.yml`, `pnpm-workspace.yaml`, and `package.json`.
 
