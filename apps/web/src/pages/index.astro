@@ -54,3 +54,38 @@ const structuredData = {
 >
 	<HomeTerminal />
 </HomeLayout>
+
+<script>
+	document.addEventListener('keydown', (event) => {
+		if (event.altKey || event.ctrlKey || event.metaKey || event.isComposing) {
+			return
+		}
+
+		const target = event.target
+
+		if (
+			target instanceof HTMLElement &&
+			(target.isContentEditable ||
+				['INPUT', 'SELECT', 'TEXTAREA'].includes(target.tagName))
+		) {
+			return
+		}
+
+		const link = document.querySelector<HTMLAnchorElement>(
+			`[data-terminal-shortcut="${event.key}"]`,
+		)
+
+		if (!link) {
+			return
+		}
+
+		event.preventDefault()
+
+		if (link.href.startsWith('mailto:')) {
+			window.location.href = link.href
+			return
+		}
+
+		window.open(link.href, '_blank', 'noopener,noreferrer')
+	})
+</script>

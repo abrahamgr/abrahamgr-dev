@@ -95,7 +95,7 @@ function TerminalLinks({ links }: { links: TerminalLink[] }) {
       aria-label="Social links"
       className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-2 text-xs text-ink"
     >
-      <span className="m-0 text-ink-muted">more info:</span>
+      <span className="m-0 text-ink-muted">press 1-{links.length} for:</span>
       {links.map((link, index) => (
         <a
           className="inline-flex items-center gap-1.25 outline-none hover:text-neon-command focus-visible:text-neon-command"
@@ -103,6 +103,7 @@ function TerminalLinks({ links }: { links: TerminalLink[] }) {
           key={link.label}
           target="_blank"
           rel="noopener noreferrer"
+          data-terminal-shortcut={index + 1}
         >
           <span className="text-neon">[{index + 1}]</span>
           {link.label}
