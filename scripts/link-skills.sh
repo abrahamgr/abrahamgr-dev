@@ -69,23 +69,22 @@ link_symlink() {
   fi
 }
 
-link_project_agents() {
+link_agent_guide() {
   local project_dir="$1"
-  local agents_target="$2"
+  local agents_path="$project_dir/AGENTS.md"
 
-  if [[ ! -e "$project_dir/AGENTS.md" ]]; then
-    link_symlink "$agents_target" "$project_dir/AGENTS.md" "$project_dir/AGENTS.md"
-  elif [[ ! -L "$project_dir/AGENTS.md" && "$project_dir" != "$repo_root" ]]; then
-    echo "Keeping project AGENTS.md: $project_dir/AGENTS.md"
+  if [[ ! -f "$agents_path" || -L "$agents_path" ]]; then
+    echo "Expected a regular project guide at: $agents_path" >&2
+    exit 1
   fi
 
   link_symlink "AGENTS.md" "$project_dir/CLAUDE.md" "$project_dir/CLAUDE.md"
 }
 
-link_project_agents "$repo_root" "AGENTS.md"
+link_agent_guide "$repo_root"
 
 for project_dir in "$repo_root"/apps/*; do
   if [[ -d "$project_dir" && -f "$project_dir/package.json" ]]; then
-    link_project_agents "$project_dir" "../../AGENTS.md"
+    link_agent_guide "$project_dir"
   fi
 done

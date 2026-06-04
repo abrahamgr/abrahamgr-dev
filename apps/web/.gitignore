@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # wrangler 
 .wrangler/
+
+# generated agent compatibility link
+CLAUDE.md

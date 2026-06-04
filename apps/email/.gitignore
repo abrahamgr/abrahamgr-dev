@@ -166,3 +166,6 @@ dist
 !.env.example
 .wrangler/
 worker-configuration.d.ts
+
+# generated agent compatibility link
+CLAUDE.md

@@ -1,36 +1,59 @@
 # Repository Guidelines
 
-## Project Structure & Module Organization
+## Scope
 
-This is a pnpm workspace for a personal site and related services. Workspace packages live under `apps/*`.
+This file covers shared concerns for the pnpm workspace. Project-specific
+instructions live alongside each package:
 
-- `apps/web`: Astro site with React components and Tailwind CSS. Pages are in `apps/web/src/pages`, reusable layouts are in `apps/web/src/layouts`, shared UI is in `apps/web/src/components`, global styles are in `apps/web/src/styles/global.css`, and static assets are in `apps/web/public`.
-- `apps/email`: Cloudflare Worker email service. Source starts at `apps/email/src/index.ts`, shared types are in `apps/email/src/types.ts`, and deployment config is in `apps/email/wrangler.jsonc`.
-- Root config includes `biome.json`, `lefthook.yml`, `pnpm-workspace.yaml`, and `package.json`.
+- `apps/web/AGENTS.md`: Astro site and static Cloudflare deployment.
+- `apps/email/AGENTS.md`: inbound email Cloudflare Worker.
 
-## Build, Test, and Development Commands
+Workspace packages live under `apps/*`. Root tooling includes `biome.json`,
+`lefthook.yml`, `pnpm-workspace.yaml`, and `scripts/link-skills.sh`.
 
-Run commands from the repository root unless noted.
+## Shared Commands
 
-- `pnpm install`: install workspace dependencies.
-- `pnpm run dev`: start the Astro web app locally through the `web` workspace.
-- `pnpm run build`: build the web app for production.
-- `pnpm run preview`: preview the production web build locally.
-- `pnpm run check`: run Biome checks and apply formatting fixes.
-- `pnpm --filter email dev`: run the Cloudflare Worker locally with Wrangler.
-- `pnpm --filter email deploy`: deploy the email Worker.
-- `pnpm --filter email cf-typegen`: regenerate Worker types after `wrangler.jsonc` binding changes.
+Run commands from the repository root.
 
-## Coding Style & Naming Conventions
+| Command | Purpose |
+| --- | --- |
+| `pnpm install` | Install workspace dependencies. |
+| `pnpm run dev` | Start the web development server. |
+| `pnpm run build` | Build the web package for production. |
+| `pnpm run preview` | Preview the production web build. |
+| `pnpm run check` | Run Biome checks and apply fixes. |
+| `pnpm run check:ci` | Run read-only Biome checks. |
+| `./scripts/link-skills.sh` | Link shared skills and local agent guides for Claude. |
 
-Use TypeScript, Astro, React, and CSS conventions already present in the repo. Biome enforces 2-space indentation, single quotes in JavaScript/TypeScript, double quotes in JSX attributes, trailing commas, and semicolons only when needed. Prefer descriptive component names in PascalCase, such as `HomeTerminal.tsx`, and keep page filenames lowercase where Astro routing expects them.
+Use package-filtered commands documented in each project's `AGENTS.md` for
+project-specific development and deployment.
 
-## Testing Guidelines
+## Shared Conventions
 
-No dedicated test runner is currently configured. Before submitting changes, run `pnpm run check` and `pnpm run build`. For Worker changes, also run `pnpm --filter email dev` or the relevant Wrangler command to validate runtime behavior. Add focused tests when introducing a test framework or when behavior becomes complex enough to justify one.
+- Follow the existing TypeScript, Astro, React, CSS, and Cloudflare patterns.
+- Biome enforces 2-space indentation, single quotes in JavaScript and
+  TypeScript, double quotes in JSX attributes, trailing commas, and semicolons
+  only when needed.
+- Keep changes scoped to the package that owns the behavior. Update shared root
+  configuration only when the change applies across the workspace.
+- Do not commit secrets, generated build output, Wrangler state, or generated
+  `CLAUDE.md` symlinks.
 
-## Commit & Pull Request Guidelines
+## Validation
 
-Always use conventional commits, matching the existing history: `feat: update favicon`, `fix: open links on new tab`, `chore: format code`. Keep commit scopes optional but useful, for example `feat(web): add terminal prompt`.
+Before submitting changes, run `pnpm run check:ci`. Run `pnpm run build` for web
+or shared configuration changes, plus the package-specific validation described
+in the relevant project guide.
 
-Pull requests should include a short description, validation commands run, linked issues when applicable, and screenshots for visible web UI changes. Mention Cloudflare binding or deployment changes explicitly, and follow `apps/email/AGENTS.md` for Worker-specific documentation checks.
+No dedicated automated test runner is configured. Add focused tests if new
+behavior becomes complex enough to justify introducing one.
+
+## Commits and Pull Requests
+
+Always use conventional commits, matching the existing history, such as
+`feat(web): add terminal prompt`, `fix(email): validate webhook headers`, or
+`chore: update workspace tooling`.
+
+Pull requests should include a short description, validation commands run,
+linked issues when applicable, and screenshots for visible web changes. Mention
+Cloudflare binding or deployment changes explicitly.
