@@ -14,14 +14,70 @@ permissions:
   contents: read
 
 jobs:
-  deploy:
-    name: Deploy Workers
+  changes:
+    name: Detect changes
+    runs-on: ubuntu-latest
+
+    outputs:
+      web: ${{ steps.changes.outputs.web }}
+      email: ${{ steps.changes.outputs.email }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Detect deployable changes
+        id: changes
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+          CURRENT_SHA: ${{ github.sha }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          web=false
+          email=false
+
+          if [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
+            web=true
+            email=true
+          elif [[ -z "$BEFORE_SHA" ]] || ! git cat-file -e "$BEFORE_SHA^{commit}" 2>/dev/null; then
+            echo "Unable to resolve the previous commit; deploying both projects."
+            web=true
+            email=true
+          else
+            while IFS= read -r -d '' path; do
+              case "$path" in
+                apps/web/*)
+                  web=true
+                  ;;
+                apps/email/*)
+                  email=true
+                  ;;
+                package.json|pnpm-lock.yaml|pnpm-workspace.yaml)
+                  web=true
+                  email=true
+                  ;;
+              esac
+            done < <(git diff --name-only -z "$BEFORE_SHA" "$CURRENT_SHA")
+          fi
+
+          echo "web=$web" >> "$GITHUB_OUTPUT"
+          echo "email=$email" >> "$GITHUB_OUTPUT"
+          echo "Deploy web: $web"
+          echo "Deploy email: $email"
+
+  deploy-web:
+    name: Deploy web Worker
+    needs: changes
+    if: needs.changes.outputs.web == 'true'
     runs-on: ubuntu-latest
     environment: production
 
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      DEPLOY_MESSAGE: ${{ github.event.head_commit.message || format('Manual deployment from {0}', github.sha) }}
 
     steps:
       - name: Checkout
@@ -45,7 +101,37 @@ jobs:
         run: pnpm --filter web build
 
       - name: Deploy web Worker
-        run: pnpm --filter web run deploy --message "Deployed from GA - ${{ github.event.head_commit.message }}"
+        run: pnpm --filter web run deploy --message "Deployed from GA - $DEPLOY_MESSAGE"
+
+  deploy-email:
+    name: Deploy email Worker
+    needs: changes
+    if: needs.changes.outputs.email == 'true'
+    runs-on: ubuntu-latest
+    environment: production
+
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      DEPLOY_MESSAGE: ${{ github.event.head_commit.message || format('Manual deployment from {0}', github.sha) }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          run_install: false
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24.13.0
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Deploy email Worker
-        run: pnpm --filter email run deploy --message "Deployed from GA - ${{ github.event.head_commit.message }}"
+        run: pnpm --filter email run deploy --message "Deployed from GA - $DEPLOY_MESSAGE"
