@@ -1,5 +1,13 @@
 import { TerminalWindow } from './TerminalWindow'
 
+declare global {
+  interface Window {
+    posthog?: {
+      capture: (event: string, properties?: Record<string, unknown>) => void
+    }
+  }
+}
+
 type SnapshotRow = {
   label: string
   value: string
@@ -89,6 +97,13 @@ function SnapshotRows({ rows }: { rows: SnapshotRow[] }) {
   )
 }
 
+function handleLinkClick(label: string, href: string) {
+  window.posthog?.capture('social_link_clicked', {
+    link_label: label,
+    link_href: href,
+  })
+}
+
 function TerminalLinks({ links }: { links: TerminalLink[] }) {
   return (
     <nav
@@ -104,6 +119,7 @@ function TerminalLinks({ links }: { links: TerminalLink[] }) {
           target="_blank"
           rel="noopener noreferrer"
           data-terminal-shortcut={index + 1}
+          onClick={() => handleLinkClick(link.label, link.href)}
         >
           <span className="text-neon">[{index + 1}]</span>
           {link.label}

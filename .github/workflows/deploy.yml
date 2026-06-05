@@ -78,6 +78,9 @@ jobs:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       DEPLOY_MESSAGE: ${{ github.event.head_commit.message || format('Manual deployment from {0}', github.sha) }}
+      PUBLIC_POSTHOG_ENV: production
+      PUBLIC_POSTHOG_PROJECT_TOKEN: ${{ vars.PUBLIC_POSTHOG_PROJECT_TOKEN }}
+      PUBLIC_POSTHOG_HOST: ${{ vars.PUBLIC_POSTHOG_HOST }}
 
     steps:
       - name: Checkout

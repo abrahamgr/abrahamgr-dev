@@ -81,6 +81,12 @@ const structuredData = {
 
 		event.preventDefault()
 
+		window.posthog?.capture('keyboard_shortcut_used', {
+			shortcut_key: event.key,
+			link_label: link.textContent?.trim() ?? '',
+			link_href: link.href,
+		})
+
 		if (link.href.startsWith('mailto:')) {
 			window.location.href = link.href
 			return

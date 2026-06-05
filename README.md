@@ -37,6 +37,11 @@ Required GitHub repository secrets:
 - `CLOUDFLARE_API_TOKEN`
 - `CLOUDFLARE_ACCOUNT_ID`
 
+Required GitHub repository variables:
+
+- `PUBLIC_POSTHOG_PROJECT_TOKEN`
+- `PUBLIC_POSTHOG_HOST`
+
 The workflow installs pnpm with `pnpm/action-setup`, configures Node 24.13.0
 with pnpm caching, runs `pnpm install --frozen-lockfile`, runs the read-only
 workspace check, builds the web app, and deploys both Worker projects.
